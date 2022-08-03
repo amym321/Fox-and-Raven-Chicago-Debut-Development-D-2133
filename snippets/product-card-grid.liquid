@@ -1,0 +1,29 @@
+{% comment %}
+    Renders a product card using "Grid" style
+    Accepts:
+    - max_height: {Number} Maximum height of the product's image (required)
+    - product: {Object} Product Liquid object (required)
+    - show_vendor: {Boolean} Show the product's vendor depending on the section setting (optional)
+
+    Usage:
+    {% include 'product-card-grid', max_height: max_height, product: product, show_vendor: section.settings.show_vendor %}
+{% endcomment %}
+{% unless grid_image_width %}
+  {%- assign grid_image_width = '600x600' -%}
+{% endunless %}
+<div class="grid-view-item{% unless product.available %} product-price--sold-out grid-view-item--sold-out{% endunless %}">
+  <a class="grid-view-item__link {% if product.images.size > 1 %} has-secondary {% endif %}" href="{{ product.url | within: collection }}">
+    <!-- crop argument to auto square image, thus fitting/filling wrapper -->
+    <img class="grid-view-item__image" src="{{ product.featured_image.src | img_url: grid_image_width, crop: 'center' }}" alt="{{ product.featured_image.alt }}">
+    {% if product.images.size > 1 %}
+     <img class="secondary" src="{{ product.images.last | img_url: grid_image_width, crop: 'center' }}" alt="{{ product.images.last.alt | escape }}">
+    {% endif %}
+    <div class="h4 grid-view-item__title">{{ product.title }}</div>
+    {% if section.settings.show_vendor %}
+      <div class="grid-view-item__vendor">{{ product.vendor }}</div>
+    {% endif %}
+    <div class="grid-view-item__meta">
+      {% include 'product-price', variant: product %}
+    </div>
+  </a>
+</div>
