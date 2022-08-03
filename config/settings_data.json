@@ -24,6 +24,7 @@
         "type": "header",
         "settings": {
           "align_logo": "left",
+          "logo": "shopify:\/\/shop_images\/logo14_1599a536-dace-4f41-b54d-ffb7c336c62e.png",
           "logo_max_width": 250,
           "main_linklist": "main-menu",
           "message": true,
